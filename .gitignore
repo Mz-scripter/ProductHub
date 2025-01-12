@@ -1,0 +1,40 @@
+# Python cache and virtual environment
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.db
+
+# Virtual environment
+venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Docker
+*.pid
+*.sock
+
+# Byte-compiled files
+*.pyc
+*.pyo
+
+# Testing
+.coverage
+htmlcov/
+.cache/
+pytest_cache/
+
+# Migrations (if using a database)
+migrations/
