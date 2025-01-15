@@ -5,7 +5,7 @@ description = "API for e-commerce product data"
 authors = ["Muheez mzscripterx5@gmai.com"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 fastapi = "*"
 uvicorn = "*"
 gunicorn = "*"
