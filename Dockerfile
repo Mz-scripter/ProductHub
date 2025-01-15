@@ -1,24 +1,24 @@
-# Use the official Python image
+# Use official Python image
 FROM python:3.10-slim
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
 
-# Set work directory
+# Set working directory
 WORKDIR /app
 
-# Install system dependencies and Rust
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
-    curl \
     gcc \
-    python3-dev \
-    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Add Rust to PATH
+# Install Rust (for packages needing it)
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Install Python dependencies
@@ -29,8 +29,8 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY . .
 
-# Expose the port FastAPI runs on
+# Expose the port FastAPI will run on
 EXPOSE 8000
 
-# Command to run the app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start Uvicorn server
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
