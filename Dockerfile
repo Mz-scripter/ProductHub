@@ -8,12 +8,18 @@ ENV PYTHONUNBUFFERED 1
 # Set work directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies and Rust
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     curl \
+    gcc \
+    python3-dev \
+    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
     && rm -rf /var/lib/apt/lists/*
+
+# Add Rust to PATH
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Install Python dependencies
 COPY requirements.txt .
