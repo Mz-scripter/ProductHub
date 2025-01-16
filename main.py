@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from app.routes import products
+from fastapi.responses import FileResponse
+import os
 
 app = FastAPI(title="ProductHub API", version="1.0.0", description="E-commerce Product Data API")
 
@@ -7,5 +9,6 @@ app = FastAPI(title="ProductHub API", version="1.0.0", description="E-commerce P
 app.include_router(products.router)
 
 @app.get("/")
-def read_root():
-    return {"message": "Welcome to ProductHub API"}
+async def read_root():
+    file_path = os.path.join("app", "static", "documentation.html")
+    return FileResponse(file_path, media_type='text/html')

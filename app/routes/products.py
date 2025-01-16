@@ -46,7 +46,7 @@ def get_products_by_category(category: str, limit: int = Query(10, ge=1)):
     category_products = [p for p in products_data if p['product_category'].lower() == category.lower()]
     if not category_products:
         raise HTTPException(status_code=404, detail={
-            "error": f"Category '{category} not found. Use /products/categories to view available categories"
+            "error": f"Category '{category}' not found. Use /products/categories to view available categories"
             })
     return category_products[:limit]
 
@@ -56,7 +56,7 @@ def get_random_product(category: str):
     category_products = [p for p in products_data if p['product_category'].lower() == category.lower()]
     if not category_products:
         raise HTTPException(status_code=404, detail={
-            "error": f"Category '{category} not found. Use /products/categories to view available categories"
+            "error": f"Category '{category}' not found. Use /products/categories to view available categories"
             })
     return random.choice(category_products)
 
@@ -66,5 +66,7 @@ def get_product_by_id(product_id: str):
     for product in products_data:
         if product['product_id'] == product_id:
             return product
-    raise HTTPException(status_code=404, detail="Product not found")
+    raise HTTPException(status_code=404, detail={
+            "error": f"Product ID - '{product_id}' not found. Use /products to view available products."
+            })
 
